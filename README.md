@@ -1,48 +1,60 @@
-<img width="500" alt="ViteReactComponentLibrary" src="https://github.com/receter/my-component-library/assets/2504695/dbb53036-d228-477b-8cf8-f61cd6130776">
+## Библиотека с авторизацией и личным кабинетом пользователя
 
-# A simple (demo) react component library
-This repository was published together with an article on [how to create a react component library](https://dev.to/receter/how-to-create-a-react-component-library-using-vites-library-mode-4lma) using Vite's library mode.
-
-Here is another repo that consumes this libarary: https://github.com/receter/my-component-library-consumer
-
-The demo library on npm: https://www.npmjs.com/package/@receter/my-component-library
-
-## Installation
-You can install it with npm (don't expect much fanciness):
-```bash
-npm i @receter/my-component-library
-```
-
-## Usage
-```javascript
-import { Button, Label, Input } from '@receter/my-component-library';
-```
-See this file for an example on using this library: https://github.com/receter/my-component-library-consumer/blob/main/src/App.tsx
-
-## React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
+---
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Для того чтобы скачать этот пакет
+Пишем в консоли в корне проекта
+```dotenv
+npm set registry http://nexus.lislab.tech/repository/lis-node-libs/
+```
+Добавляем в корень проекта файл `.npmrc` с кредами от нексуса. Файл должен быть вида:
+```
+   email=your_email@severstal.com
+   always-auth=true
+   //nexus.lislab.tech/repository/lis-node-libs/:_auth=a3MuZHViYXNvdjpyb2FPVWVxa0tyS3k0cEdVclk5cA==a
+```
+Ключ авторизации генерить вот так:
+```dotenv
+echo -n 'login:password' | openssl base64
+```
+где login это логин, а password - пароль.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+Вводим в терминал
+```dotenv
+npm install @lis/auth-lib@0.0.1 --legacy-peer-deps
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Потом импортируем компоненты типа такого (папку библы можно посмотреть в node_modules)
+```js
+import {Button} from "@lis/auth-lib";
+```
+
+---
+
+## О самой библиотеке
+
+* Все компоненты в папке `/lib`
+* Экспорт основных компонент в файле `/lib/main.ts`
+* Переменные в файле `.env`
+* Креды нексуса в файле `.npmrc`
+* Версия ноды для библы `.nvmrc`
+* Зависимости `package.json`
+* Конфиги `vite.config.js` `tsconfig-build.json` `tsconfig.node.json` `tsconfig.json`
+* Линтер и притер `.eslintrc` `.prettierrc`
+* в `package.json` в `publishConfig` ссылка того куда льем билд
+
+---
+
+* для того чтобы залить в nexus `npm publish`
+* установить зависимости `npm i`
+
+---
+
+## Вот тут много полезного о там как сделать похожую штуку:
+`https://dev.to/receter/how-to-create-a-react-component-library-using-vites-library-mode-4lma
+`
